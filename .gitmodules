@@ -1,0 +1,3 @@
+[submodule "procol-core"]
+	path = procol-core
+	url = https://github.com/huntwj/procol.git
