@@ -7,6 +7,24 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <RichTextBox Grid.Row="0" Grid.Column="0" 
+                     x:Name="MainTerminal" VerticalScrollBarVisibility="Visible">
+            <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </RichTextBox.Resources>
+        </RichTextBox>
+        <TextBox x:Name="input" Grid.Row="1" Grid.Column="0"
+            HorizontalAlignment="Stretch"
+            KeyUp="OnKeyUp_UserInput"
+        />
     </Grid>
 </Window>

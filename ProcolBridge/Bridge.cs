@@ -1,12 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProcolBridge
 {
     public class Bridge
     {
+        public event EventHandler<string> OnAppendTerminal;
+
+        public void SendUserInput(string text)
+        {
+            Log(text);
+        }
+
+        public void Log(string message)
+        {
+            OnAppendTerminal?.Invoke(this, message);
+        }
     }
 }
