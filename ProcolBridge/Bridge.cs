@@ -8,13 +8,16 @@ namespace ProcolBridge
     public class Bridge
     {
         public event EventHandler<string> OnAppendTerminal;
+        public IUserInterface UI { get; set; }
 
         private Process CoreProcess { get; set; }
 
         private readonly Stream stdinToCore;
 
-        public Bridge()
+        public Bridge(IUserInterface ui)
         {
+            UI = ui;
+
             CoreProcess = new Process();
 
             CoreProcess.StartInfo.FileName = "C:\\Users\\whunt\\source\\repos\\ProcolWin\\procol.exe";
@@ -29,12 +32,18 @@ namespace ProcolBridge
             CoreProcess.EnableRaisingEvents = true;
             CoreProcess.ErrorDataReceived += HandleErrorData;
             CoreProcess.OutputDataReceived += HandleStdoutData;
+            CoreProcess.Exited += HandleProcessExisted;
 
             CoreProcess.Start();
             CoreProcess.BeginErrorReadLine();
             CoreProcess.BeginOutputReadLine();
 
             stdinToCore = CoreProcess.StandardInput.BaseStream;
+        }
+
+        private void HandleProcessExisted(object sender, EventArgs e)
+        {
+            UI.Exit();
         }
 
         private void HandleErrorData(object sender, DataReceivedEventArgs e)

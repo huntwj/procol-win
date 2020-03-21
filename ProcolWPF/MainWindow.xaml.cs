@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ProcolBridge;
+using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 
@@ -7,7 +8,7 @@ namespace ProcolWPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IUserInterface
     {
         public ProcolBridge.Bridge Bridge { get; set; }
 
@@ -15,7 +16,7 @@ namespace ProcolWPF
         {
             InitializeComponent();
 
-            Bridge = new ProcolBridge.Bridge();
+            Bridge = new ProcolBridge.Bridge(this);
 
             Bridge.OnAppendTerminal += AddToTerminal;
         }
@@ -46,6 +47,15 @@ namespace ProcolWPF
             {
                 input.Text = "";
             }
+        }
+
+        delegate void ExitDelegate();
+
+        public void Exit()
+        {
+            MainTerminal.Dispatcher.Invoke(
+                new ExitDelegate(Application.Current.Shutdown)
+                );
         }
     }
 }
