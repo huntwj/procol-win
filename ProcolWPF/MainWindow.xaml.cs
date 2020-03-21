@@ -20,7 +20,17 @@ namespace ProcolWPF
             Bridge.OnAppendTerminal += AddToTerminal;
         }
 
+        public delegate void AddToTerminalDelegate(string message);
+
         public void AddToTerminal(object sender, string message)
+        {
+            MainTerminal.Dispatcher.Invoke(
+                new AddToTerminalDelegate(this.SimpleAddToTerminal),
+                message
+               );
+        }
+
+        private void SimpleAddToTerminal(string message)
         {
             MainTerminal.Document.Blocks.Add(new Paragraph(new Run(message)));
         }
