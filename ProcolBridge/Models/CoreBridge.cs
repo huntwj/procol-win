@@ -1,22 +1,22 @@
-﻿using System;
+﻿using ProcolBridge.ViewModels;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace ProcolBridge
+namespace ProcolBridge.Models
 {
-    public class Bridge
+    public class CoreBridge
     {
-        public event EventHandler<string> OnAppendTerminal;
-        public IUserInterface UI { get; set; }
+        public ProcolSession Session { get; set; }
 
         private Process CoreProcess { get; set; }
 
         private readonly Stream stdinToCore;
 
-        public Bridge(IUserInterface ui)
+        public CoreBridge(ProcolSession session)
         {
-            UI = ui;
+            Session = session;
 
             CoreProcess = new Process();
 
@@ -43,7 +43,7 @@ namespace ProcolBridge
 
         private void HandleProcessExisted(object sender, EventArgs e)
         {
-            UI.Exit();
+            Session.Exit();
         }
 
         private void HandleErrorData(object sender, DataReceivedEventArgs e)
@@ -58,7 +58,7 @@ namespace ProcolBridge
 
         private void HandleData(string data)
         {
-            Log(data);
+            Session.Log(data);
         }
 
         public void SendUserInput(string text)
@@ -66,11 +66,6 @@ namespace ProcolBridge
             var data = Encoding.UTF8.GetBytes($"{text}\n");
             stdinToCore.Write(data, 0, data.Length);
             stdinToCore.Flush();
-        }
-
-        public void Log(string message)
-        {
-            OnAppendTerminal?.Invoke(this, message);
         }
     }
 }

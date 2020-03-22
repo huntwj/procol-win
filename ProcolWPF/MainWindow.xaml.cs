@@ -1,4 +1,5 @@
 ﻿using ProcolBridge;
+using ProcolBridge.ViewModels;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -10,15 +11,15 @@ namespace ProcolWPF
     /// </summary>
     public partial class MainWindow : Window, IUserInterface
     {
-        public ProcolBridge.Bridge Bridge { get; set; }
+        private ProcolSession Session { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
 
-            Bridge = new ProcolBridge.Bridge(this);
+            Session = new ProcolSession(this);
 
-            Bridge.OnAppendTerminal += AddToTerminal;
+            Session.OnAppendTerminal += AddToTerminal;
         }
 
         public delegate void AddToTerminalDelegate(string message);
@@ -46,7 +47,7 @@ namespace ProcolWPF
         {
             if (a.Key == Key.Return)
             {
-                Bridge.SendUserInput(input.Text);
+                Session.SendUserInput(input.Text);
                 input.Select(0, input.Text.Length);
             }
             else if (a.Key == Key.Escape)

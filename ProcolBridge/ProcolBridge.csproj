@@ -69,9 +69,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bridge.cs" />
+    <Compile Include="Models\CoreBridge.cs" />
     <Compile Include="IUserInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ProcolSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
