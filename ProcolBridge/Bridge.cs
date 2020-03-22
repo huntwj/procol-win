@@ -20,7 +20,7 @@ namespace ProcolBridge
 
             CoreProcess = new Process();
 
-            CoreProcess.StartInfo.FileName = "C:\\Users\\whunt\\source\\repos\\ProcolWin\\procol.exe";
+            CoreProcess.StartInfo.FileName = "C:\\Users\\whunt\\source\\repos\\ProcolWin\\procol-core\\target\\debug\\procol.exe";
             CoreProcess.StartInfo.CreateNoWindow = true;
             CoreProcess.StartInfo.StandardErrorEncoding = Encoding.UTF8;
             CoreProcess.StartInfo.StandardOutputEncoding = Encoding.UTF8;
@@ -66,8 +66,6 @@ namespace ProcolBridge
             var data = Encoding.UTF8.GetBytes($"{text}\n");
             stdinToCore.Write(data, 0, data.Length);
             stdinToCore.Flush();
-
-            Log(text);
         }
 
         public void Log(string message)

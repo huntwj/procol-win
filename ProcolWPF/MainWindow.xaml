@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:ProcolWPF"
         mc:Ignorable="d"
         FocusManager.FocusedElement="{Binding ElementName=input}"
+        WindowState="Maximized"
+        WindowStyle="None"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,7 +18,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <RichTextBox Grid.Row="0" Grid.Column="0" 
-                     x:Name="MainTerminal" VerticalScrollBarVisibility="Visible">
+                     x:Name="MainTerminal" VerticalScrollBarVisibility="Hidden" FontSize="20" FontFamily="Courier New" Background="Black" Foreground="White">
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">
                     <Setter Property="Margin" Value="0"/>
@@ -25,7 +27,8 @@
         </RichTextBox>
         <TextBox x:Name="input" Grid.Row="1" Grid.Column="0"
             HorizontalAlignment="Stretch"
-            KeyUp="OnKeyUp_UserInput"
+            KeyUp="OnKeyUp_UserInput" FontSize="20" FontFamily="Courier New"
+            Background="Black" Foreground="White"
         />
     </Grid>
 </Window>
