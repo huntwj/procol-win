@@ -13,22 +13,39 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <RichTextBox Grid.Row="0" Grid.Column="0" 
-                     x:Name="MainTerminal" VerticalScrollBarVisibility="Hidden" FontSize="20" FontFamily="Courier New" Background="Black" Foreground="White">
+        <Grid Background="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <RichTextBox Grid.Row="0" Grid.Column="0" BorderThickness="0"
+                     x:Name="MainTerminal" VerticalScrollBarVisibility="Hidden"
+                     FontSize="20" FontFamily="Courier New"
+                     Background="Black" Foreground="White"
+                     IsReadOnlyCaretVisible="True" IsReadOnly="True"
+                     VerticalAlignment="Bottom">
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">
                     <Setter Property="Margin" Value="0"/>
                 </Style>
             </RichTextBox.Resources>
         </RichTextBox>
-        <TextBox x:Name="input" Grid.Row="1" Grid.Column="0"
+        </Grid>
+        <Label x:Name="status" Grid.Row="1" Grid.Column="0" Content="o Not Connected"/>
+        <TextBox x:Name="input" Grid.Row="2" Grid.Column="0"
             HorizontalAlignment="Stretch"
             KeyUp="OnKeyUp_UserInput" FontSize="20" FontFamily="Courier New"
             Background="Black" Foreground="White"
+            Padding="5"
+            BorderThickness="0"
         />
     </Grid>
 </Window>

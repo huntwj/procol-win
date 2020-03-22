@@ -34,6 +34,12 @@ namespace ProcolWPF
         private void SimpleAddToTerminal(string message)
         {
             MainTerminal.Document.Blocks.Add(new Paragraph(new Run(message)));
+            MainTerminal.ScrollToEnd();
+
+            while (MainTerminal.Document.Blocks.Count > 100)
+            {
+                MainTerminal.Document.Blocks.Remove(MainTerminal.Document.Blocks.FirstBlock);
+            }
         }
 
         private void OnKeyUp_UserInput(object sender, KeyEventArgs a)
